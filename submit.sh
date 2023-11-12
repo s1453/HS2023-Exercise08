@@ -6,8 +6,8 @@ read -p "Enter your email address: " email
 # Trim and convert the email to lowercase
 email=$(echo $email | xargs | tr '[:upper:]' '[:lower:]')
 
-# Generate a SHA256 hash of the email
-hash=$(echo -n $email | sha256sum | cut -d ' ' -f1)
+# Generate a SHA256 hash of the email using OpenSSL
+hash=$(echo -n $email | openssl dgst -sha256 | cut -d ' ' -f2)
 
 # Create the submissions directory if it doesn't exist
 directory="./submissions"
