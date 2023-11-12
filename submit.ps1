@@ -1,3 +1,20 @@
+# Check if inside a Git repository
+function IsGitRepository {
+    $currentDir = Get-Location
+    while ($currentDir -ne [System.IO.Path]::GetPathRoot($currentDir)) {
+        if (Test-Path (Join-Path $currentDir '.git')) {
+            return $true
+        }
+        $currentDir = [System.IO.DirectoryInfo]$currentDir.Parent
+    }
+    return $false
+}
+
+if (-not (IsGitRepository)) {
+    Write-Host "This script must be run inside a Git repository."
+    Exit
+}
+
 # Prompt for the email address
 $email = Read-Host -Prompt "Enter your email address"
 

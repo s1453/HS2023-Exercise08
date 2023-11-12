@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# Check if inside a Git repository
+function is_git_repository() {
+    dir=$(pwd)
+    while [ "$dir" != '/' ]; do
+        if [ -d "$dir/.git" ]; then
+            return 0
+        fi
+        dir=$(dirname "$dir")
+    done
+    return 1
+}
+
+if ! is_git_repository; then
+    echo "This script must be run inside a Git repository."
+    exit 1
+fi
+
 # Prompt for the email address
 read -p "Enter your email address: " email
 
