@@ -10,12 +10,12 @@ jobs:
     - name: Checkout Base Repository
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.base_ref }}
+        ref: ${{ github.event.pull_request.base.ref }}
 
     - name: Checkout Head Repository
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.head_ref }}
+        ref: ${{ github.event.pull_request.head.ref }}
         path: 'head_repo'
 
     - name: Check for Single File Addition
