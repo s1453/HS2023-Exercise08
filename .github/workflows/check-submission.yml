@@ -11,18 +11,18 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: ${{ github.event.pull_request.base.ref }}
+        path: 'base_repo'
 
     - name: Checkout Head Repository
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.event.pull_request.head.ref }}
         path: 'head_repo'
 
-    - name: Check for Single File Addition
+    - name: Check for Single File Addition in Submissions
       run: |
+        # Count added files in the submissions directory
         cd head_repo
-        git diff --name-status ${{ github.base_ref }} | grep '^A\s\+submissions/' | wc -l > added_files_count.txt
-        added_files=$(cat added_files_count.txt)
+        added_files=$(git diff --name-status --diff-filter=A "origin/${{ github.event.pull_request.base.ref }}" | grep -c '^A\s\+submissions/')
         echo "Added files count: $added_files"
         if [ "$added_files" -ne "1" ]; then
           echo "Error: PR must add exactly one file to 'submissions/'"
