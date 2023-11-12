@@ -20,10 +20,13 @@ jobs:
 
     - name: Check for Single File Addition in Submissions
       run: |
-        # Count added files in the submissions directory
-        cd head_repo
-        git diff --name-status ${{ github.base_ref }} | grep '^A\s\+submissions/' | wc -l > added_files_count.txt
-        added_files=$(cat added_files_count.txt)
+        # Count added files in the submissions directories
+        num_base=$(ls -l base_repo/submissions | wc -l)
+        num_head=$(ls -l head_repo/submissions | wc -l)
+        # Convert to integers
+        num_base=$(($num_base + 0))
+        num_head=$(($num_head + 0))
+        added_files=$(($num_base + $num_head))
         echo "Added files count: $added_files"
         if [ "$added_files" -ne "1" ]; then
           echo "Error: PR must add exactly one file to 'submissions/'"
