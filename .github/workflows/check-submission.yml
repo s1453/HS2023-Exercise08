@@ -26,7 +26,7 @@ jobs:
         # Convert to integers
         num_base=$(($num_base + 0))
         num_head=$(($num_head + 0))
-        added_files=$(($num_base - $num_head))
+        added_files=$(($num_head - $num_base))
         echo "Added files count: $added_files"
         if [ "$added_files" -ne "1" ]; then
           echo "Error: PR must add exactly one file to 'submissions/'"
