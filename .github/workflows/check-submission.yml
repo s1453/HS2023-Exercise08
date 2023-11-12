@@ -22,7 +22,8 @@ jobs:
       run: |
         # Count added files in the submissions directory
         cd head_repo
-        added_files=$(git diff --name-status --diff-filter=A "origin/${{ github.event.pull_request.base.ref }}" | grep -c '^A\s\+submissions/')
+        git diff --name-status ${{ github.base_ref }} | grep '^A\s\+submissions/' | wc -l > added_files_count.txt
+        added_files=$(cat added_files_count.txt)
         echo "Added files count: $added_files"
         if [ "$added_files" -ne "1" ]; then
           echo "Error: PR must add exactly one file to 'submissions/'"
