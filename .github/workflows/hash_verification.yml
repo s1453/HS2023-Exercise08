@@ -1,0 +1,21 @@
+name: Hash Verification
+
+on: [push, pull_request] 
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest 
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x' 
+
+    - name: Verify Hashes
+      run: |
+        python helpers/verify_hashes.py hashes.txt submissions/
+
