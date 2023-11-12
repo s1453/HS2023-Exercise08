@@ -27,7 +27,7 @@ def create_hash_file(csv_file_path, hash_file_path):
 
 # Paths
 csv_file_path = 'teilnehmer.csv'
-hash_file_path = 'hashes.txt'
+hash_file_path = '../hashes.txt'
 
 # Execute
 create_hash_file(csv_file_path, hash_file_path)
