@@ -17,7 +17,7 @@ def verify_submissions(hash_file_path, directory_path):
             continue
 
         file_hash = filename.split('.')[0]  # ignore file extensions
-        if file_hash not in valid_hashes:
+        if file_hash.lower() not in valid_hashes:
             print(f"Found invalid submission: {filename}")
             return 1 
 
