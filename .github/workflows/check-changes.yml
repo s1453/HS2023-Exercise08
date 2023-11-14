@@ -1,4 +1,4 @@
-name: Validate Submission
+name: Check Changes
 
 on: [pull_request]
 
