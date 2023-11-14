@@ -17,7 +17,7 @@ def create_hash_file(csv_file_path, hash_file_path):
             # Mail adress should be in the fourth column
             email = row[3].strip('"')
             # Calculate SHA256 hash
-            email_hash = hashlib.sha256(email.encode()).hexdigest()
+            email_hash = hashlib.sha256(email.encode()).hexdigest().lower()
             hashes.append(email_hash)
 
     # Write hash to file
