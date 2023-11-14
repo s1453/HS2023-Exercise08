@@ -1,4 +1,4 @@
-name: Hash Verification
+name: Validate Hash
 
 on: [push, pull_request] 
 

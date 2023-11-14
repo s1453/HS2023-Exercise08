@@ -1,4 +1,4 @@
-name: Check Submission
+name: Check Submission File
 
 on: [pull_request]
 
