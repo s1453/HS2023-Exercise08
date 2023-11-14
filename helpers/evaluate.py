@@ -12,7 +12,7 @@ def evaluate_submissions(teilnehmer_csv, submissions_dir, output_csv):
     Also, report unknown submissions in the submissions directory.
     """
     # Get hashes of files in submissions directory, ignoring files starting with '.'
-    submission_hashes = {filename.split('.')[0] for filename in os.listdir(submissions_dir) if not filename.startswith('.')}
+    submission_hashes = {filename.split('.')[0].lower() for filename in os.listdir(submissions_dir) if not filename.startswith('.')}
 
     known_hashes = set()
     with open(teilnehmer_csv, 'r', encoding='utf-8') as infile, \
@@ -30,7 +30,7 @@ def evaluate_submissions(teilnehmer_csv, submissions_dir, output_csv):
                 continue
 
             name, firstname, email = row[1].strip('"'), row[2].strip('"'), row[3].strip('"')
-            email_hash = hash_email(email)
+            email_hash = hash_email(email).lower()
             known_hashes.add(email_hash)
 
             if email_hash in submission_hashes:
