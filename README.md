@@ -48,6 +48,7 @@ This repository uses GitHub Actions to automatically validate submissions. The w
 
 - Each pull request adds exactly one new file to the submissions directory.
 - That the submission corresponds to the hashed email address of a participant.
+- That there are no other changes to the repository.
 
 
 ## Setup and Assessment Process
