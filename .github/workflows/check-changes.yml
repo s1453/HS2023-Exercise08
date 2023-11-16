@@ -1,0 +1,29 @@
+name: Check Changes
+
+on: [pull_request]
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Check for Exact One File Addition in Submissions
+      run: |
+        # Ensure that only one file has been added
+        added_files=$(git diff --name-status ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep '^A\s\+submissions/' | wc -l)
+        if [ "$added_files" -ne 1 ]; then
+          echo "Error: PR must add exactly one file to 'submissions/'"
+          exit 1
+        fi
+
+        # Check if there are any other changes to the repository
+        total_changes=$(git diff --name-status ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | wc -l)
+        if [ "$total_changes" -ne "$added_files" ]; then
+          echo "Error: PR must not change any files outside 'submissions/'"
+          exit 1
+        fi
