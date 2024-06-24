@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Get the name of the current shell
+current_shell=$(ps -p $$ -o comm=)
+
+# Check if the current shell is not bash
+if [ "$current_shell" != "bash" ]; then
+    echo "This script must be run in the Bash shell."
+    echo "Please run it using 'bash submit.sh' or make it executable and run './submit.sh'."
+    exit 1
+fi
+
 # Check if inside a Git repository
 function is_git_repository() {
     dir=$(pwd)
@@ -21,10 +31,10 @@ fi
 read -p "Enter your email address: " email
 
 # Trim and convert the email to lowercase
-email=$(echo $email | xargs | tr '[:upper:]' '[:lower:]')
+email=$(echo "$email" | xargs | tr '[:upper:]' '[:lower:]')
 
 # Generate a SHA256 hash of the email using OpenSSL
-hash=$(echo -n $email | openssl dgst -sha256 | cut -d ' ' -f2)
+hash=$(echo -n "$email" | openssl dgst -sha256 | cut -d ' ' -f2)
 
 # Create the submissions directory if it doesn't exist
 directory="./submissions"
